@@ -1,0 +1,20 @@
+# Project exclude paths
+/common/common-application/target/
+/common/common-dataaccess/target/
+/common/common-domain/target/
+/customer-service/target/
+/infrastructure/kafka/kafka-config-data/target/
+/infrastructure/kafka/kafka-consumer/target/
+/infrastructure/kafka/kafka-model/target/
+/infrastructure/kafka/kafka-producer/target/
+/order-service/order-application/target/
+/order-service/order-container/target/
+/order-service/order-dataaccess/target/
+/order-service/order-domain/order-application-service/target/
+/order-service/order-domain/order-domain-core/target/
+/order-service/order-messaging/target/
+/payment-service/payment-container/target/
+/payment-service/payment-data-access/target/
+/payment-service/payment-domain/payment-application-service/target/
+/payment-service/payment-domain/payment-domain-core/target/
+/payment-service/payment-messaging/target/
