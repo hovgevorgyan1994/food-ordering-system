@@ -8,31 +8,35 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="common-application" />
-        <module name="customer-service" />
         <module name="kafka-model" />
         <module name="kafka-consumer" />
-        <module name="order-application-service" />
-        <module name="kafka-producer" />
         <module name="payment-messaging" />
-        <module name="kafka-config-data" />
-        <module name="payment-data-access" />
-        <module name="order-container" />
         <module name="order-dataaccess" />
         <module name="restaurant-container" />
         <module name="order-messaging" />
         <module name="payment-application-service" />
-        <module name="restaurant-dataaccess" />
-        <module name="payment-container" />
         <module name="common-domain" />
         <module name="order-application" />
         <module name="restaurant-domain-core" />
         <module name="order-domain-core" />
         <module name="payment-domain-core" />
+        <module name="saga" />
         <module name="common-dataaccess" />
         <module name="restaurant-application-service" />
+        <module name="customer-service" />
+        <module name="order-application-service" />
+        <module name="kafka-producer" />
+        <module name="kafka-config-data" />
+        <module name="payment-dataaccess" />
+        <module name="order-container" />
+        <module name="restaurant-dataaccess" />
+        <module name="payment-container" />
         <module name="restaurant-messaging" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="payment-data-access" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -59,6 +63,7 @@
       <module name="payment-application-service" options="-parameters" />
       <module name="payment-container" options="-parameters" />
       <module name="payment-data-access" options="-parameters" />
+      <module name="payment-dataaccess" options="-parameters" />
       <module name="payment-domain" options="-parameters" />
       <module name="payment-domain-core" options="-parameters" />
       <module name="payment-messaging" options="-parameters" />
@@ -70,6 +75,7 @@
       <module name="restaurant-domain-core" options="-parameters" />
       <module name="restaurant-messaging" options="-parameters" />
       <module name="restaurant-service" options="-parameters" />
+      <module name="saga" options="-parameters" />
     </option>
   </component>
 </project>

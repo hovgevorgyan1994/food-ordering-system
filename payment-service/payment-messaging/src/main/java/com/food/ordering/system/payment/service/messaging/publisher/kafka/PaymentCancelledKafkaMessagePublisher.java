@@ -9,13 +9,11 @@ import com.food.ordering.system.payment.service.domain.event.PaymentCompletedEve
 import com.food.ordering.system.payment.service.domain.ports.output.message.publisher.PaymentCancelledMessagePublisher;
 import com.food.ordering.system.payment.service.domain.ports.output.message.publisher.PaymentCompletedMessagePublisher;
 import com.food.ordering.system.payment.service.messaging.mapper.PaymentMessagingDataMapper;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class PaymentCancelledKafkaMessagePublisher implements PaymentCancelledMessagePublisher {
 
     private final PaymentMessagingDataMapper paymentMessagingDataMapper;
@@ -23,27 +21,38 @@ public class PaymentCancelledKafkaMessagePublisher implements PaymentCancelledMe
     private final PaymentServiceConfigData paymentServiceConfigData;
     private final KafkaMessageHelper kafkaMessageHelper;
 
+    public PaymentCancelledKafkaMessagePublisher(PaymentMessagingDataMapper paymentMessagingDataMapper,
+                                                 KafkaProducer<String, PaymentResponseAvroModel> kafkaProducer,
+                                                 PaymentServiceConfigData paymentServiceConfigData,
+                                                 KafkaMessageHelper kafkaMessageHelper) {
+        this.paymentMessagingDataMapper = paymentMessagingDataMapper;
+        this.kafkaProducer = kafkaProducer;
+        this.paymentServiceConfigData = paymentServiceConfigData;
+        this.kafkaMessageHelper = kafkaMessageHelper;
+    }
+
     @Override
     public void publish(PaymentCancelledEvent domainEvent) {
         String orderId = domainEvent.getPayment().getOrderId().getValue().toString();
 
         log.info("Received PaymentCancelledEvent for order id: {}", orderId);
+
         try {
             PaymentResponseAvroModel paymentResponseAvroModel =
-                paymentMessagingDataMapper.paymentCancelledEventToPaymentResponseAvroModel(domainEvent);
+                    paymentMessagingDataMapper.paymentCancelledEventToPaymentResponseAvroModel(domainEvent);
 
             kafkaProducer.send(paymentServiceConfigData.getPaymentResponseTopicName(),
-                               orderId,
-                               paymentResponseAvroModel,
-                               kafkaMessageHelper.getKafkaCallback(
-                                   paymentServiceConfigData.getPaymentResponseTopicName(),
-                                   paymentResponseAvroModel, orderId,
-                                   "PaymentResponseAvroModel"));
+                    orderId,
+                    paymentResponseAvroModel,
+                    kafkaMessageHelper.getKafkaCallback(paymentServiceConfigData.getPaymentResponseTopicName(),
+                            paymentResponseAvroModel,
+                            orderId,
+                            "PaymentResponseAvroModel"));
 
-            log.info("PaymentResponseAvroModel sent to Kafka for order id: {}", orderId);
+            log.info("PaymentResponseAvroModel sent to kafka for order id: {}", orderId);
         } catch (Exception e) {
-            log.error("Error while sending PaymentResponseAvroModel message to kafka with order id: {}, error: {}",
-                      orderId, e.getMessage());
+            log.error("Error while sending PaymentResponseAvroModel message" +
+                    " to kafka with order id: {}, error: {}", orderId, e.getMessage());
         }
     }
 }

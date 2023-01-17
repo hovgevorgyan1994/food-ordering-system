@@ -72,7 +72,7 @@
             </dependency>
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
-                <artifactId>payment-data-access</artifactId>
+                <artifactId>payment-dataaccess</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -133,6 +133,11 @@
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
                 <artifactId>kafka-config-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.food.ordering.system</groupId>
+                <artifactId>saga</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

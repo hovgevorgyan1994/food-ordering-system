@@ -1,10 +1,5 @@
 package com.food.ordering.system.payment.service.domain.entity;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.UUID;
-
 import com.food.ordering.system.domain.entity.AggregateRoot;
 import com.food.ordering.system.domain.valueobject.CustomerId;
 import com.food.ordering.system.domain.valueobject.Money;
@@ -12,11 +7,17 @@ import com.food.ordering.system.domain.valueobject.OrderId;
 import com.food.ordering.system.domain.valueobject.PaymentStatus;
 import com.food.ordering.system.payment.service.domain.valueobject.PaymentId;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.UUID;
+
 public class Payment extends AggregateRoot<PaymentId> {
 
     private final OrderId orderId;
     private final CustomerId customerId;
     private final Money price;
+
     private PaymentStatus paymentStatus;
     private ZonedDateTime createdAt;
 
@@ -35,9 +36,19 @@ public class Payment extends AggregateRoot<PaymentId> {
         this.paymentStatus = paymentStatus;
     }
 
+    private Payment(Builder builder) {
+        setId(builder.paymentId);
+        orderId = builder.orderId;
+        customerId = builder.customerId;
+        price = builder.price;
+        paymentStatus = builder.paymentStatus;
+        createdAt = builder.createdAt;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
+
 
     public OrderId getOrderId() {
         return orderId;
@@ -103,14 +114,5 @@ public class Payment extends AggregateRoot<PaymentId> {
         public Payment build() {
             return new Payment(this);
         }
-    }
-
-    private Payment(Builder builder) {
-        super.setId(builder.paymentId);
-        orderId = builder.orderId;
-        customerId = builder.customerId;
-        price = builder.price;
-        paymentStatus = builder.paymentStatus;
-        createdAt = builder.createdAt;
     }
 }
