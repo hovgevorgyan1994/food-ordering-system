@@ -10,6 +10,7 @@
         <module>infrastructure</module>
         <module>customer-service</module>
         <module>payment-service</module>
+        <module>restaurant-service</module>
     </modules>
 
     <parent>
@@ -71,7 +72,7 @@
             </dependency>
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
-                <artifactId>payment-dataaccess</artifactId>
+                <artifactId>payment-data-access</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
